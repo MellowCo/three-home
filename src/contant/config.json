@@ -1,0 +1,32 @@
+{
+  "name": "客厅",
+  "grouts": [
+    {
+      "id": 42,
+      "name": "1#纯白色",
+      "photoUrl": "/img/grout/0b2fc9082cdf474c8c00560e62ef83d0.png"
+    },
+    {
+      "id": 43,
+      "name": "2#象牙白",
+      "photoUrl": "/img/grout/a790c5d1bb0d47c0b83486e0c094bf43.png"
+    },
+    {
+      "id": 44,
+      "name": "9#闪亮银",
+      "photoUrl": "/img/grout/13eac4f5fc3442dea492dd39d57b4155.png"
+    }
+  ],
+  "tiles": [
+    {
+      "id": 37,
+      "name": "BS",
+      "photoUrl": "/img/tile/f83d03a37d934b87a71d047e12f41acb.jpg"
+    },
+    {
+      "id": 38,
+      "name": "SS",
+      "photoUrl": "/img/tile/eae612f921a943fb8517fb281a228bc1.jpg"
+    }
+  ]
+}

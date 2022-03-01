@@ -1,7 +1,7 @@
 <!--
  * @Author: licl
  * @Date: 2021-11-30 11:15:24
- * @LastEditTime: 2021-11-30 11:21:12
+ * @LastEditTime: 2022-03-01 15:23:44
  * @LastEditors: licl
  * @Description: 
 -->
@@ -9,31 +9,45 @@
 <template></template>
 
 <script setup lang="ts">
-import { Scene, PerspectiveCamera, WebGLRenderer, BoxGeometry, MeshBasicMaterial, Mesh } from 'three'
+import { Scene, PerspectiveCamera, WebGLRenderer, BoxGeometry, Mesh, TextureLoader, LoadingManager } from 'three'
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
+import { createMaterialList } from '../utils/index'
+import config from '../config/index'
 
 const scene = new Scene();
-const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 1000);
 const renderer = new WebGLRenderer();
+
+// 解决图片模糊
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
+
+camera.position.z = 0.01
 document.body.appendChild(renderer.domElement);
 
 
-const geometry = new BoxGeometry();
-const material = new MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new Mesh(geometry, material);
-scene.add(cube);
+//@ts-ignore
+const controls = new OrbitControls(camera, renderer.domElement);
 
-camera.position.z = 5;
+const loadingManager = new LoadingManager()
+const loader = new TextureLoader(loadingManager)
+const geometry = new BoxGeometry(10, 10, 10);
 
+const materials = createMaterialList(loader, config.home['37-42'], '..')
+
+const cube = new Mesh(geometry, materials);
+
+loadingManager.onLoad = () => {
+  scene.add(cube);
+  cube.geometry.scale(10, 10, -10);
+  controls.update();
+  animate();
+}
 
 function animate() {
   requestAnimationFrame(animate);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+  controls.update();
   renderer.render(scene, camera);
 }
-
-animate();
-
-
 </script>
